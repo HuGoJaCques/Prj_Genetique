@@ -14,6 +14,7 @@ class Microbe:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.energy = 500
 
     def draw(self, screen):
         pygame.draw.circle(screen, BLUE, (self.x, self.y), 5)
@@ -21,12 +22,16 @@ class Microbe:
     def move(self):
         self.x += random.randint(-5, 5)
         self.y += random.randint(-5, 5)
-        self.x = max(0, min(self.x, WINDOW_WIDTH))
-        self.y = max(0, min(self.y, WINDOW_HEIGHT))
+        self.x = max(0, min(self.x, WINDOW_WIDTH-1))
+        self.y = max(0, min(self.y, WINDOW_HEIGHT-1))
+        self.energy -= 2
 
     def eat_green_point(self, green_points):
-        for green_point in green_points:
-            if (self.x, self.y) == green_point:
-                green_points[green_point] = False
-            
-            
+        if green_points[self.y][self.x]>0:
+                self.energy += green_points[self.y][self.x] * 40
+                green_points[self.y][self.x] = 0
+    
+    def isdead(self):
+         return self.energy<0
+
+              

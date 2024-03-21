@@ -7,5 +7,6 @@ class GreenPoint:
         self.x = x
         self.y = y
 
-    def draw(self, screen):
+    def draw(self, screen):      
         pygame.draw.circle(screen, GREEN, (self.x, self.y), 2)
+  
